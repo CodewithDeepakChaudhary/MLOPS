@@ -1,0 +1,76 @@
+===============================================
+Phase-1: Build Foundation for MLOps
+==============================================
+
+Step 1. Create virtual environment
+python -m venv kiet-cse
+
+Step-2: Activate virtual environment
+In mac:
+source kiet-cse/bin/activate
+
+In windows:
+kiet-cse\Scripts\activate
+
+Step-3: Create project structure
+mkdir mlops-first-pipeline
+cd mlops-first-pipeline
+
+requirements.txt:
+scikit-learn
+joblib
+fastapi
+uvicorn
+pydantic
+
+Step-4: Install required packages
+pip install -r requirements.txt
+
+Step-5: Train and Save the model
+python train.py
+
+Step-6: Create and Start the FastAPI
+uvicorn main:app --reload
+OR
+python -m uvicorn main:app --reload
+
+For API Testing use this data:
+{
+    "sepal_lenght":
+    "sepal_width":
+    "petal_length":
+    "petal_width":
+}
+
+=================================================
+Phase-2: Dockerize ML Application
+=================================================
+
+Traditional ML flow:
+Dataset -> Train -> Model Evaluatin -> Prediction
+
+Production Ready ML Application
+Saved Model -> Python App -> REST API -> Automated Test -> Docker Container -> CI/CD
+Can be tested, deployed, accessed by clients ans maintained consistently
+
+
+Serialization -> model Save
+Deserialization -> model load
+
+Why we need Docker ?
+- Imagine right now ML Application is working on your macbook, but fails on another engineer laptop that runs it on a Linux/windows server
+
+Possible reasons of failure:
+- Different Python Versions
+- Different versions of scikit-learn or FastAPI
+- Missing python packages
+- Different OS dependencies
+
+Docker helps package your Application code , runtime , dependencies and startup
+instructions into a standardized image
+
+4 major requirements:
+- Dockerfile - instructions for packaging the ML Application
+- Inamge - packaged reusable Application artifact
+- Container - Running instance of the image
+- Port mapping - Makes the API inside the Container accessible from your system

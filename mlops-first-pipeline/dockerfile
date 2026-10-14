@@ -1,0 +1,22 @@
+# start with a lightweight Python image
+# This gives our container a python runtime
+FROM python:3.14-slim
+
+# Set the woriking directory inside the container
+WORKDIR /app
+
+# copy the dependency list before copying application code
+COPY requirements.txt .
+
+# avoid retaining pip's download chache in the image
+RUN pip install --no-chache-dir -r requirements.txt
+
+# copy the application code and saved model into/app
+COPY . .
+
+# document the port used by FastAPI application
+EXPOSE 8000
+
+# Start the API server when the container launches
+#
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
